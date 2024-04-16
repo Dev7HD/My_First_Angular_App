@@ -1,0 +1,132 @@
+{
+  "Products": [
+    {
+      "id": "1",
+      "name": "Work Station",
+      "price": 23000,
+      "quantity": 23,
+      "available": true,
+      "selected": true
+    },
+    {
+      "id": "3",
+      "name": "Smart Phone",
+      "price": 8000,
+      "quantity": 10,
+      "available": false,
+      "selected": true
+    },
+    {
+      "id": "4",
+      "name": "PC Gamer",
+      "price": 33000,
+      "quantity": 10,
+      "available": true,
+      "selected": true
+    },
+    {
+      "id": "5",
+      "name": "Server",
+      "price": 15000,
+      "quantity": 2,
+      "available": true,
+      "selected": true
+    },
+    {
+      "id": "6",
+      "name": "WorkStation",
+      "price": 17000,
+      "quantity": 20,
+      "available": true,
+      "selected": true
+    },
+    {
+      "id": "7",
+      "name": "Server",
+      "price": 25000,
+      "quantity": 6,
+      "available": false,
+      "selected": true
+    },
+    {
+      "id": "9",
+      "name": "SmartPhone",
+      "price": 7000,
+      "quantity": 13,
+      "available": true,
+      "selected": true
+    },
+    {
+      "id": "10",
+      "name": "Server",
+      "price": 150000,
+      "quantity": 0,
+      "available": false,
+      "selected": true
+    },
+    {
+      "id": "11",
+      "name": "iMac",
+      "price": 35000,
+      "quantity": 7,
+      "available": true,
+      "selected": false
+    },
+    {
+      "id": "dae2",
+      "name": "Mac Pro",
+      "price": 130000,
+      "quantity": 1,
+      "available": true,
+      "selected": false
+    },
+    {
+      "id": "f79a",
+      "name": "PS5",
+      "price": 8500,
+      "quantity": 4,
+      "available": true,
+      "selected": false
+    },
+    {
+      "id": "38c1",
+      "name": "Xbox One",
+      "price": 7500,
+      "quantity": 2,
+      "available": true,
+      "selected": true
+    },
+    {
+      "id": "906f",
+      "name": "Steam Deck",
+      "price": 7500,
+      "quantity": 3,
+      "available": true,
+      "selected": false
+    },
+    {
+      "name": "AYANEO",
+      "price": 8700,
+      "quantity": 5,
+      "available": true,
+      "selected": false,
+      "id": "YUnmlK4"
+    },
+    {
+      "name": "test",
+      "price": 77,
+      "quantity": 77,
+      "available": true,
+      "selected": false,
+      "id": "YFjvbqH"
+    },
+    {
+      "name": "test",
+      "price": 88,
+      "quantity": 88,
+      "available": true,
+      "selected": true,
+      "id": "g1aq_YF"
+    }
+  ]
+}
