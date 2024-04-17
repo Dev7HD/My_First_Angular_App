@@ -9,7 +9,7 @@ import {HttpClientModule} from "@angular/common/http";
 import { NewProductComponent } from './new-product/new-product.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { EditProductComponent } from './edit/edit.component';
-import { EditModalComponent } from './edit-modal/edit-modal.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -17,15 +17,15 @@ import { EditModalComponent } from './edit-modal/edit-modal.component';
     HomeComponent,
     ProductComponent,
     NewProductComponent,
-    EditProductComponent,
-    EditModalComponent
+    EditProductComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]

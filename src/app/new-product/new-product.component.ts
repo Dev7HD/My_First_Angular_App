@@ -1,8 +1,9 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {HttpClient} from "@angular/common/http";
 import {Product} from "../../model/product.model";
 import {ProductsService} from "../services/products.service";
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-new-product',
@@ -10,13 +11,15 @@ import {ProductsService} from "../services/products.service";
   styleUrl: './new-product.component.css'
 })
 export class NewProductComponent implements OnInit{
+  @ViewChild('myModalContent') myModalContent: any;
 
   public productForm!: FormGroup;
 
   constructor(
     private formBuilder: FormBuilder,
     private http: HttpClient,
-    private productServices: ProductsService
+    private productServices: ProductsService,
+    private modalService: NgbModal
     ) {
   }
 
@@ -24,10 +27,18 @@ export class NewProductComponent implements OnInit{
     this.resetFormControl()
   }
 
+  openModal(content: any) {
+    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title', keyboard: false });
+  }
+
+  closeModal() {
+    this.modalService.dismissAll()
+  }
+
   saveProduct(product: Product) {
     this.productServices.saveProduct(product).subscribe({
-      next: value => {
-        console.table(product)
+      next: () => {
+        this.openModal(this.myModalContent)
         this.resetFormControl()
       }, error: err => {
         console.error(err)

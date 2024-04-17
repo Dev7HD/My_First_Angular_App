@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {ProductsService} from "../services/products.service";
 import {Product} from "../../model/product.model";
@@ -15,11 +15,13 @@ export class EditProductComponent implements OnInit{
   public productFormGroup!: FormGroup;
   public product!: Product;
   public id!:number;
+  @ViewChild('myModalContent') myModalContent: any;
 
   constructor(
     private formBuilder: FormBuilder,
     private productServices: ProductsService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private modalService: NgbModal
   ) {
   }
 
@@ -43,22 +45,19 @@ export class EditProductComponent implements OnInit{
 
     }
 
-  showModal = false; // Variable to track modal visibility
-
-  openModal() {
-    this.showModal = true;
+  openModal(content: any) {
+    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title', keyboard: false });
   }
 
-  onCloseModal() {
-    this.showModal = false;
+  closeModal() {
+    this.modalService.dismissAll()
   }
 
   editComponent() {
     this.product = this.productFormGroup.value;
     this.productServices.updateProduct(this.productFormGroup.value).subscribe({
-      next: (data) => {
-        console.table(data)
-        this.openModal()
+      next: () => {
+        this.openModal(this.myModalContent)
       }, error: err => {
         console.error(err.message)
       }

@@ -359,22 +359,6 @@
       "available": false,
       "selected": false,
       "id": "hTZe97I"
-    },
-    {
-      "name": "tryy",
-      "price": 0,
-      "quantity": 0,
-      "available": false,
-      "selected": false,
-      "id": "bPPa8TJ"
-    },
-    {
-      "name": "test",
-      "price": 0,
-      "quantity": 0,
-      "available": false,
-      "selected": false,
-      "id": "RuqmhSY"
     }
   ]
 }
