@@ -27,6 +27,7 @@ export class NewProductComponent implements OnInit{
   saveProduct(product: Product) {
     this.productServices.saveProduct(product).subscribe({
       next: value => {
+        console.table(product)
         this.resetFormControl()
       }, error: err => {
         console.error(err)

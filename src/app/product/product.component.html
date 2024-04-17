@@ -3,7 +3,7 @@
     <div class="card-header">Find a product</div>
     <div class="card-body">
       <div class="input-group mb-3">
-        <input [(ngModel)]="keyword" type="text" class="form-control" placeholder="Keyword" aria-label="Keyword" aria-describedby="button-addon2">
+        <input (input)="getProducts(keyword,1,size)" [(ngModel)]="keyword" type="text" class="form-control" placeholder="Keyword" aria-label="Keyword" aria-describedby="button-addon2">
         <button (click)="getProducts(keyword,1,size)" class="btn btn-outline-secondary" type="button" id="button-addon2">
           Search
           <i class="bi bi-search"></i>
@@ -12,7 +12,7 @@
     </div>
   </div>
 
-  <div class="card">
+  <div *ngIf="products.length" class="card">
     <div class="card-body">
       <table class="table">
         <thead>
@@ -22,6 +22,7 @@
           <th>Quantity</th>
           <th>Available</th>
           <th>Selected</th>
+          <th>Edit</th>
           <th>Delete</th>
         </tr>
         </thead>
@@ -40,6 +41,11 @@
             <button (click)="selectionToggle(product)"
                     [class]="product.selected ? 'btn btn-outline-success' : 'btn btn-outline-danger'">
               <i [class]="product.selected ? 'bi bi-bookmark-check-fill' : 'bi bi-bookmark-x-fill'"></i>
+            </button>
+          </td>
+          <td>
+            <button (click)="handelUpdate(product)" routerLink="/edit" type="button" class="btn btn-outline-secondary">
+              <i class="bi bi-pencil-fill"></i>
             </button>
           </td>
           <td>
@@ -62,6 +68,13 @@
           <option value="15">15</option>
         </select>
         <label for="floatingSelect">Per page</label>
+      </div>
+    </div>
+  </div>
+  <div class="card" *ngIf="!products.length">
+    <div class="card-body">
+      <div class="d-flex justify-content-center align-content-center">
+        <div [innerText]="keyword === '' ? 'The product list is empty.' : 'There is no product contains the keyword: \''+ keyword + '\'.'" class="text-danger fs-2 fw-bold"></div>
       </div>
     </div>
   </div>

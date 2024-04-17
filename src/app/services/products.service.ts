@@ -10,8 +10,7 @@ import {map, Observable} from "rxjs";
 export class ProductsService {
 
   constructor( private http : HttpClient) { }
-
-  public getProducts(keyword: string, page: number, size: number) {
+    public getProducts(keyword: string, page: number, size: number) {
     return this.http.get(`${environment.json_host}Products?name_like=${keyword}&_page=${page}&_limit=${size}`,{observe:'response'})
   }
 
@@ -33,5 +32,13 @@ export class ProductsService {
 
   public saveProduct(product: Product): Observable<Product> {
     return this.http.post<Product>(`${environment.json_host}Products/`,product)
+  }
+
+  public updateProduct(product: Product): Observable<Product> {
+    return this.http.put<Product>(`${environment.json_host}Products/${product.id}`,product)
+  }
+
+  getProductById(id: number): Observable<Product>{
+    return this.http.get<Product>(`${environment.json_host}Products/${id}`)
   }
 }
