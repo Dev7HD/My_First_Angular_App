@@ -14,16 +14,10 @@ export class ProductsService {
     return this.http.get(`${environment.json_host}Products?name_like=${keyword}&_page=${page}&_limit=${size}`,{observe:'response'})
   }
 
-  public dispoToggle(product: Product): Observable<Product> {
-    return this.http.patch<Product>(`${environment.json_host}Products/${product.id}`,{
+  public updateFieldProduct(product: Product, field: string): Observable<Product> {
+    return this.http.patch<Product>(`${environment.json_host}Products/${product.id}`, field === 'available' ? {
       available: !product.available
-    })
-  }
-
-  public selectionToggle(product: Product): Observable<Product> {
-    return this.http.patch<Product>(`${environment.json_host}Products/${product.id}`,{
-      selected: !product.selected
-    })
+    } : field === 'selected' ? { selected: !product.selected } : {id: product.id})
   }
 
   public deleteProduct(product: Product) {

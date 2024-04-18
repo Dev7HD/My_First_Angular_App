@@ -1,9 +1,10 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Product} from "../../model/product.model";
 import {ProductsService} from "../services/products.service";
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {AppStateService} from "../services/app-state.service";
+import {ToastService} from "../services/toast-service.service";
 
 @Component({
   selector: 'app-new-product',
@@ -12,6 +13,9 @@ import {AppStateService} from "../services/app-state.service";
 })
 export class NewProductComponent implements OnInit{
   @ViewChild('myModalContent') myModalContent: any;
+  @ViewChild('standardTpl') standardTemplateRef!: TemplateRef<any>;
+  @ViewChild('successTpl') successTemplateRef!: TemplateRef<any>;
+  @ViewChild('dangerTpl') errorTemplateRef!: TemplateRef<any>;
 
   public productForm!: FormGroup;
 
@@ -19,12 +23,25 @@ export class NewProductComponent implements OnInit{
     private formBuilder: FormBuilder,
     private productServices: ProductsService,
     private modalService: NgbModal,
-    private appState: AppStateService
+    private appState: AppStateService,
+    private toastService: ToastService
     ) {
   }
 
   ngOnInit() {
     this.resetFormControl()
+  }
+
+  showStandard(template: TemplateRef<any>) {
+    this.toastService.show({ template: template, delay: 1000});
+  }
+
+  showSuccess(template: TemplateRef<any>) {
+    this.toastService.show({ template, classname: 'bg-success text-light', delay: 3000 });
+  }
+
+  showDanger(template: TemplateRef<any>) {
+    this.toastService.show({ template, classname: 'bg-danger text-light', delay: 3000 });
   }
 
   openModal(content: any) {
@@ -36,13 +53,16 @@ export class NewProductComponent implements OnInit{
   }
 
   saveProduct(product: Product) {
+    this.showStandard(this.standardTemplateRef)
     this.productServices.saveProduct(product).subscribe({
       next: () => {
-        this.appState.countAllProducts()
+        this.appState.getAllProducts()
         this.openModal(this.myModalContent)
         this.resetFormControl()
+        this.showSuccess(this.successTemplateRef)
       }, error: err => {
         console.error(err)
+        this.showDanger(this.errorTemplateRef)
       }
     })
   }

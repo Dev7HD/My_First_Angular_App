@@ -1,10 +1,11 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {ProductsService} from "../services/products.service";
 import {Product} from "../../model/product.model";
 import {ActivatedRoute} from "@angular/router";
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {AppStateService} from "../services/app-state.service";
+import {ToastService} from "../services/toast-service.service";
 
 @Component({
   selector: 'app-edit',
@@ -12,18 +13,21 @@ import {AppStateService} from "../services/app-state.service";
   styleUrl: './edit.component.css'
 })
 export class EditProductComponent implements OnInit{
+  @ViewChild('dangerTpl') errorTemplateRef!: TemplateRef<any>;
+  @ViewChild('myModalContent') myModalContent: any;
+  @ViewChild('standardTpl') standardTemplateRef!: TemplateRef<any>;
 
   public productFormGroup!: FormGroup;
   public product!: Product;
   public id!:number;
-  @ViewChild('myModalContent') myModalContent: any;
 
   constructor(
     private formBuilder: FormBuilder,
     private productServices: ProductsService,
     private activatedRoute: ActivatedRoute,
     private modalService: NgbModal,
-    private appState: AppStateService
+    private appState: AppStateService,
+    protected toastService: ToastService
   ) {
   }
 
@@ -47,6 +51,14 @@ export class EditProductComponent implements OnInit{
 
     }
 
+  showStandard(template: TemplateRef<any>) {
+    this.toastService.show({ template: template, delay: 1000});
+  }
+
+  showDanger(template: TemplateRef<any>) {
+    this.toastService.show({ template, classname: 'bg-danger text-light', delay: 3000 });
+  }
+
   openModal(content: any) {
     this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title', keyboard: false });
   }
@@ -56,13 +68,15 @@ export class EditProductComponent implements OnInit{
   }
 
   editComponent() {
+    this.showStandard(this.standardTemplateRef)
     this.product = this.productFormGroup.value;
     this.productServices.updateProduct(this.productFormGroup.value).subscribe({
       next: () => {
-        this.appState.countAllProducts()
+        this.appState.getAllProducts()
         this.openModal(this.myModalContent)
       }, error: err => {
         console.error(err.message)
+        this.showDanger(this.errorTemplateRef)
       }
     })
   }

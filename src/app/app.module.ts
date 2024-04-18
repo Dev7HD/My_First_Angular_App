@@ -9,8 +9,9 @@ import {HttpClientModule} from "@angular/common/http";
 import { NewProductComponent } from './new-product/new-product.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { EditProductComponent } from './edit/edit.component';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import {NgbModule, NgbTooltipModule} from '@ng-bootstrap/ng-bootstrap';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import {ToastsContainer} from "./toast-container.component";
 
 @NgModule({
   declarations: [
@@ -27,7 +28,9 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
-    NgbModule
+    NgbModule,
+    NgbTooltipModule,
+    ToastsContainer
   ],
   providers: [],
   bootstrap: [AppComponent]

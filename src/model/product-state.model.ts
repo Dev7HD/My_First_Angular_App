@@ -2,6 +2,7 @@ import {Product} from "./product.model";
 
 export interface ProductState{
   products: Product[];
+  allProducts: Product[];
   keyword: string;
   size: number;
   thisPage: number;

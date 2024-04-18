@@ -1,0 +1,45 @@
+<div class="container">
+  <div class="card">
+    <div class="card-header">
+      <h4>Products dashboard</h4>
+    </div>
+    <div class="card-body d-flex justify-content-center flex-wrap">
+      <button type="button" class="btn btn-primary position-relative fw-bold me-4 mb-3">
+        Total products
+        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+          {{appStateService.productState.totalCountProducts}}
+        </span>
+      </button>
+      <button type="button" class="btn btn-warning position-relative fw-bold me-4 mb-3">
+        Total products per page
+        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+          {{appStateService.productState.size}}
+        </span>
+      </button>
+      <button type="button" class="btn btn-secondary position-relative fw-bold me-4 mb-3">
+        Total pages
+        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+          {{appStateService.productState.totalPages}}
+        </span>
+      </button>
+      <button type="button" class="btn btn-danger position-relative fw-bold me-4 mb-3">
+        Total products available
+        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+          {{appStateService.productState.totalAvailable}}
+        </span>
+      </button>
+      <button type="button" class="btn btn-light position-relative fw-bold me-4 mb-3">
+        Total products selected
+        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+          {{appStateService.productState.totalSelected}}
+        </span>
+      </button>
+      <button *ngIf="appStateService.productState.keyword !== ''" type="button" class="btn btn-success position-relative fw-bold me-4 mb-3">
+        Total pages in search
+        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+          {{appStateService.productState.totalSearchPages}}
+        </span>
+      </button>
+    </div>
+  </div>
+</div>
