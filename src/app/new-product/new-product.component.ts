@@ -1,6 +1,5 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {HttpClient} from "@angular/common/http";
 import {Product} from "../../model/product.model";
 import {ProductsService} from "../services/products.service";
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';

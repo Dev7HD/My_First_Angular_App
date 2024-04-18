@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component,  OnInit} from '@angular/core';
 import {Product} from "../../model/product.model";
 import {ProductsService} from "../services/products.service";
 import {Router} from "@angular/router";

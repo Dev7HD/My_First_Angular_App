@@ -5,16 +5,16 @@
       "name": "Smart Phone",
       "price": 9900,
       "quantity": 10,
-      "available": false,
-      "selected": true
+      "available": true,
+      "selected": false
     },
     {
       "id": "5",
       "name": "Server",
       "price": 15000,
       "quantity": 2,
-      "available": true,
-      "selected": true
+      "available": false,
+      "selected": false
     },
     {
       "id": "6",
@@ -29,24 +29,16 @@
       "name": "Server",
       "price": 25000,
       "quantity": 6,
-      "available": false,
-      "selected": true
-    },
-    {
-      "id": "9",
-      "name": "SmartPhone",
-      "price": 7000,
-      "quantity": 13,
       "available": true,
-      "selected": true
+      "selected": false
     },
     {
       "id": "10",
       "name": "Server",
       "price": 150000,
       "quantity": 0,
-      "available": false,
-      "selected": true
+      "available": true,
+      "selected": false
     },
     {
       "id": "11",
@@ -79,14 +71,6 @@
       "quantity": 2,
       "available": true,
       "selected": true
-    },
-    {
-      "id": "906f",
-      "name": "Steam Deck",
-      "price": 7500,
-      "quantity": 3,
-      "available": true,
-      "selected": false
     },
     {
       "id": "1",
@@ -181,32 +165,16 @@
       "name": "Steam Deck",
       "price": 7500,
       "quantity": 3,
-      "available": true,
+      "available": false,
       "selected": false
     },
     {
+      "id": "YUnmlK4",
       "name": "AYANEO",
       "price": 8700,
       "quantity": 5,
       "available": true,
-      "selected": false,
-      "id": "YUnmlK4"
-    },
-    {
-      "name": "test",
-      "price": 77,
-      "quantity": 77,
-      "available": true,
-      "selected": false,
-      "id": "YFjvbqH"
-    },
-    {
-      "name": "test",
-      "price": 88,
-      "quantity": 88,
-      "available": true,
-      "selected": true,
-      "id": "g1aq_YF"
+      "selected": true
     },
     {
       "id": "1",
@@ -321,44 +289,12 @@
       "id": "YUnmlK4"
     },
     {
-      "name": "test",
-      "price": 77,
-      "quantity": 77,
-      "available": true,
-      "selected": false,
-      "id": "YFjvbqH"
-    },
-    {
-      "name": "test",
-      "price": 88,
-      "quantity": 88,
+      "name": "eeeee",
+      "price": 0,
+      "quantity": 0,
       "available": true,
       "selected": true,
-      "id": "g1aq_YF"
-    },
-    {
-      "name": "Smart Phone",
-      "price": 800000,
-      "quantity": 10,
-      "available": true,
-      "selected": true,
-      "id": "4LB7SPR"
-    },
-    {
-      "name": "test",
-      "price": 77999,
-      "quantity": 9999,
-      "available": true,
-      "selected": false,
-      "id": "67SUNXj"
-    },
-    {
-      "name": "test",
-      "price": 1,
-      "quantity": 1,
-      "available": false,
-      "selected": false,
-      "id": "hTZe97I"
+      "id": "tLBLGu5"
     }
   ]
 }
