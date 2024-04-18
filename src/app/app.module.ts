@@ -10,6 +10,7 @@ import { NewProductComponent } from './new-product/new-product.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { EditProductComponent } from './edit/edit.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     HomeComponent,
     ProductComponent,
     NewProductComponent,
-    EditProductComponent
+    EditProductComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,

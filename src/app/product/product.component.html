@@ -1,18 +1,30 @@
 <div class="container">
-  <div class="card mb-4">
+  <div class="card mb-4 mt-4">
     <div class="card-header">Find a product</div>
     <div class="card-body">
       <div class="input-group mb-3">
-        <input (input)="getProducts(keyword,1,size)" [(ngModel)]="keyword" type="text" class="form-control" placeholder="Keyword" aria-label="Keyword" aria-describedby="button-addon2">
-        <button (click)="getProducts(keyword,1,size)" class="btn btn-outline-secondary" type="button" id="button-addon2">
+        <input (input)="getProducts(appState.productState.keyword,1,appState.productState.size)"
+               [(ngModel)]="appState.productState.keyword"
+               type="text"
+               class="form-control"
+               placeholder="Keyword"
+               aria-label="Keyword"
+               aria-describedby="button-addon2">
+        <button (click)="getProducts(appState.productState.keyword,1,appState.productState.size)"
+                class="btn btn-outline-secondary"
+                type="button"
+                id="button-addon2">
           Search
           <i class="bi bi-search"></i>
         </button>
       </div>
     </div>
+    <div *ngIf="appState.productState.keyword !== '' " class="card-footer">
+      <h5 [innerText]="appState.productState.totalCurrentProducts + ' product(s) found.'"></h5>
+    </div>
   </div>
 
-  <div *ngIf="products.length" class="card">
+  <div *ngIf="appState.productState.products.length" class="card">
     <div class="card-body">
       <table class="table">
         <thead>
@@ -27,7 +39,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let product of products">
+        <tr *ngFor="let product of appState.productState.products">
           <td>{{ product.name }}</td>
           <td>{{ product.price }}</td>
           <td>{{ product.quantity }}</td>
@@ -59,10 +71,19 @@
     </div>
     <div class="card-footer d-flex flex-row justify-content-between" >
       <div>
-        <button *ngFor="let i of pagesArray" [class]="i == thisPage ? 'btn btn-success me-3' : 'btn btn-outline-success me-3'" (click)="getProducts(keyword,i,size)">{{i}}</button>
+        <button *ngFor="let i of appState.productState.pagesArray"
+                class="btn me-3 mb-2"
+                [ngClass]="i == appState.productState.thisPage ? 'btn-success' : 'btn-outline-success'"
+                (click)="getProducts(appState.productState.keyword,i,appState.productState.size)">
+          {{i}}
+        </button>
       </div>
       <div class="form-floating" style="width: 100px">
-        <select (change)="getProducts(keyword,1,size)" [(ngModel)]="size" class="form-select" id="floatingSelect" aria-label="Floating label select example">
+        <select (change)="getProducts(appState.productState.keyword,1,appState.productState.size)"
+                [(ngModel)]="appState.productState.size"
+                class="form-select"
+                id="floatingSelect"
+                aria-label="Floating label select example">
           <option selected value="5">5</option>
           <option value="10">10</option>
           <option value="15">15</option>
@@ -71,10 +92,12 @@
       </div>
     </div>
   </div>
-  <div class="card" *ngIf="!products.length">
+  <div class="card" *ngIf="!appState.productState.products.length">
     <div class="card-body">
       <div class="d-flex justify-content-center align-content-center">
-        <div [innerText]="keyword === '' ? 'The product list is empty.' : 'There is no product contains the keyword: \''+ keyword + '\'.'" class="text-danger fs-2 fw-bold"></div>
+        <div
+          [innerText]="appState.productState.keyword === '' ? 'The product list is empty.' : 'There is no product contains the keyword: \''+ appState.productState.keyword + '\'.'"
+          class="text-danger fs-2 fw-bold"></div>
       </div>
     </div>
   </div>

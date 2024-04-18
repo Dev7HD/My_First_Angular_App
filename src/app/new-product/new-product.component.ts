@@ -4,6 +4,7 @@ import {HttpClient} from "@angular/common/http";
 import {Product} from "../../model/product.model";
 import {ProductsService} from "../services/products.service";
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import {AppStateService} from "../services/app-state.service";
 
 @Component({
   selector: 'app-new-product',
@@ -17,9 +18,9 @@ export class NewProductComponent implements OnInit{
 
   constructor(
     private formBuilder: FormBuilder,
-    private http: HttpClient,
     private productServices: ProductsService,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private appState: AppStateService
     ) {
   }
 
@@ -38,6 +39,7 @@ export class NewProductComponent implements OnInit{
   saveProduct(product: Product) {
     this.productServices.saveProduct(product).subscribe({
       next: () => {
+        this.appState.countAllProducts()
         this.openModal(this.myModalContent)
         this.resetFormControl()
       }, error: err => {

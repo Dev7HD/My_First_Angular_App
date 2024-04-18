@@ -4,6 +4,7 @@ import {ProductsService} from "../services/products.service";
 import {Product} from "../../model/product.model";
 import {ActivatedRoute} from "@angular/router";
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import {AppStateService} from "../services/app-state.service";
 
 @Component({
   selector: 'app-edit',
@@ -21,7 +22,8 @@ export class EditProductComponent implements OnInit{
     private formBuilder: FormBuilder,
     private productServices: ProductsService,
     private activatedRoute: ActivatedRoute,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private appState: AppStateService
   ) {
   }
 
@@ -57,6 +59,7 @@ export class EditProductComponent implements OnInit{
     this.product = this.productFormGroup.value;
     this.productServices.updateProduct(this.productFormGroup.value).subscribe({
       next: () => {
+        this.appState.countAllProducts()
         this.openModal(this.myModalContent)
       }, error: err => {
         console.error(err.message)

@@ -1,7 +1,8 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {Product} from "../../model/product.model";
 import {ProductsService} from "../services/products.service";
 import {Router} from "@angular/router";
+import {AppStateService} from "../services/app-state.service";
 
 @Component({
   selector: 'app-product',
@@ -9,40 +10,33 @@ import {Router} from "@angular/router";
   styleUrl: './product.component.css'
 })
 export class ProductComponent implements OnInit{
- constructor(private productServices: ProductsService, private router: Router) {
+ constructor(private productServices: ProductsService,
+             private router: Router,
+             public appState: AppStateService) {
 
  }
-
-  public products: Array<Product> = [];
-  public keyword: string = "";
-  public size: number = 5;
-  public page: number = 1;
-  public thisPage: number = 1;
-  public totalPages: number = 1;
-  public pagesArray: number[] = []
-  public totalCountProducts: number = 0;
-  public selectedProduct!: Product | null;
 
   ngOnInit() {
-    this.getProducts(this.keyword, this.thisPage, this.size)
+    this.getProducts(this.appState.productState.keyword, this.appState.productState.thisPage, this.appState.productState.size)
  }
+
 
   getProducts(keyword: string, page: number, size: number){
    this.productServices.getProducts(keyword,page, size).subscribe(
      {
        next: response => {
-         this.thisPage = page;
-         this.products = response.body as Product[]; // Use non-null assertion for clarity
-         if(!this.products.length) {
-           this.thisPage --;
-           if(this.thisPage <= 0) this.products = []
-           else this.getProducts(this.keyword, this.thisPage, this.size);
+         this.appState.productState.thisPage = page;
+         this.appState.productState.products = response.body as Product[]; // Use non-null assertion for clarity
+         if(!this.appState.productState.products.length) {
+           this.appState.productState.thisPage --;
+           if(this.appState.productState.thisPage <= 0) this.appState.productState.products = []
+           else this.getProducts(this.appState.productState.keyword, this.appState.productState.thisPage, this.appState.productState.size);
          }
-         this.totalCountProducts = parseInt(response.headers.get('X-Total-Count') || '0'); // Default to 0 if header is missing
-         this.totalPages = Math.ceil(this.totalCountProducts / size);
-         if(this.page == 1) {
-           this.pagesArray = Array.from({ length: this.totalPages }, (_, i) => i + 1);
-         }
+         this.appState.countAllProducts()
+
+         this.appState.productState.totalCurrentProducts = parseInt(response.headers.get('X-Total-Count') || '0'); // Default to 0 if header is missing
+         this.appState.productState.totalSearchPages = Math.ceil(this.appState.productState.totalCurrentProducts / size);
+         this.appState.productState.pagesArray = Array.from({ length: this.appState.productState.totalSearchPages }, (_, i) => i + 1);
        },
        error: err => {
          console.error(err.message())
@@ -54,9 +48,10 @@ export class ProductComponent implements OnInit{
     this.productServices.dispoToggle(product)
       .subscribe({
         next: updatedProduct => {
-          const productIndex: number = this.products.findIndex(p => p.id === updatedProduct.id);
+          const productIndex: number = this.appState.productState.products.findIndex(p => p.id === updatedProduct.id);
           if (productIndex !== -1) {
-            this.products[productIndex] = updatedProduct;
+            this.appState.productState.products[productIndex] = updatedProduct;
+            this.appState.countAllProducts()
           }
         },
         error: err => {
@@ -69,9 +64,10 @@ export class ProductComponent implements OnInit{
     this.productServices.selectionToggle(product)
       .subscribe({
         next: updatedProduct => {
-          const productIndex = this.products.findIndex(p => p.id === updatedProduct.id);
+          const productIndex = this.appState.productState.products.findIndex(p => p.id === updatedProduct.id);
           if (productIndex !== -1) {
-            this.products[productIndex] = updatedProduct;
+            this.appState.productState.products[productIndex] = updatedProduct;
+            this.appState.countAllProducts()
           }
         },
         error: err => {
@@ -81,12 +77,13 @@ export class ProductComponent implements OnInit{
   }
 
   deleteProduct() {
-    if (this.selectedProduct) {
-      this.productServices.deleteProduct(this.selectedProduct)
+    if (this.appState.productState.selectedProduct) {
+      this.productServices.deleteProduct(this.appState.productState.selectedProduct)
         .subscribe({
           next: () => {
-            this.getProducts(this.keyword,this.thisPage,this.size)
-            this.selectedProduct = null; // Clear selected product after deletion
+            this.appState.countAllProducts()
+            this.getProducts(this.appState.productState.keyword,this.appState.productState.thisPage,this.appState.productState.size)
+            this.appState.productState.selectedProduct = null; // Clear selected product after deletion
           },
           error: err => {
             console.error(err.message);
@@ -98,7 +95,7 @@ export class ProductComponent implements OnInit{
 
   setProduct(product: Product) {
     if(product != null) {
-      this.selectedProduct = product;
+      this.appState.productState.selectedProduct = product;
     }
   }
 

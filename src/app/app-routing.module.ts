@@ -4,6 +4,7 @@ import {HomeComponent} from "./home/home.component";
 import {ProductComponent} from "./product/product.component";
 import {NewProductComponent} from "./new-product/new-product.component";
 import {EditProductComponent} from "./edit/edit.component";
+import {DashboardComponent} from "./dashboard/dashboard.component";
 
 const routes: Routes = [
   {path: "home", component: HomeComponent},
