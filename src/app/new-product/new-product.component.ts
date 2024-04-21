@@ -14,7 +14,6 @@ import {ToastService} from "../services/toast-service.service";
 export class NewProductComponent implements OnInit{
   @ViewChild('myModalContent') myModalContent: any;
   @ViewChild('standardTpl') standardTemplateRef!: TemplateRef<any>;
-  @ViewChild('successTpl') successTemplateRef!: TemplateRef<any>;
   @ViewChild('dangerTpl') errorTemplateRef!: TemplateRef<any>;
 
   public productForm!: FormGroup;
@@ -32,16 +31,12 @@ export class NewProductComponent implements OnInit{
     this.resetFormControl()
   }
 
-  showStandard(template: TemplateRef<any>) {
-    this.toastService.show({ template: template, delay: 1000});
-  }
-
-  showSuccess(template: TemplateRef<any>) {
-    this.toastService.show({ template, classname: 'bg-success text-light', delay: 3000 });
+  showStandard(template: TemplateRef<any>, innerText: string) {
+    this.toastService.show({ template, text: innerText, classname: 'p-3' });
   }
 
   showDanger(template: TemplateRef<any>) {
-    this.toastService.show({ template, classname: 'bg-danger text-light', delay: 3000 });
+    this.toastService.show({ template, classname: 'bg-danger text-light', delay: 6000 });
   }
 
   openModal(content: any) {
@@ -53,13 +48,13 @@ export class NewProductComponent implements OnInit{
   }
 
   saveProduct(product: Product) {
-    this.showStandard(this.standardTemplateRef)
+    this.showStandard(this.standardTemplateRef, 'Saving the new product...')
     this.productServices.saveProduct(product).subscribe({
       next: () => {
         this.appState.getAllProducts()
         this.openModal(this.myModalContent)
         this.resetFormControl()
-        this.showSuccess(this.successTemplateRef)
+        this.toastService.clear()
       }, error: err => {
         console.error(err)
         this.showDanger(this.errorTemplateRef)

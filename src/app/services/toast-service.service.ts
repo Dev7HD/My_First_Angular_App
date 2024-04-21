@@ -1,6 +1,8 @@
 import { Injectable, TemplateRef } from '@angular/core';
 
 export interface Toast {
+  html?: string;
+  text?: string;
   template: TemplateRef<any>;
   classname?: string;
   delay?: number;
@@ -15,7 +17,9 @@ export class ToastService {
   }
 
   remove(toast: Toast) {
+    console.log(this.toasts)
     this.toasts = this.toasts.filter((t) => t !== toast);
+    console.log(this.toasts)
   }
 
   clear() {

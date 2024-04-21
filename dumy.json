@@ -5,8 +5,8 @@
       "name": "Server",
       "price": 15000,
       "quantity": 2,
-      "available": true,
-      "selected": true
+      "available": false,
+      "selected": false
     },
     {
       "id": "2",
@@ -126,7 +126,7 @@
       "price": 35000,
       "quantity": 7,
       "available": true,
-      "selected": false
+      "selected": true
     },
     {
       "id": "17",
@@ -205,7 +205,7 @@
       "name": "Server",
       "price": 25000,
       "quantity": 6,
-      "available": false,
+      "available": true,
       "selected": true
     },
     {
@@ -286,7 +286,7 @@
       "quantity": 0,
       "available": false,
       "selected": false,
-      "id": "36"
+      "id": "HUByngL"
     },
     {
       "name": "test",
@@ -294,7 +294,7 @@
       "quantity": 0,
       "available": false,
       "selected": false,
-      "id": "37"
+      "id": "WMnDqqH"
     },
     {
       "name": "test",
@@ -302,7 +302,7 @@
       "quantity": 0,
       "available": false,
       "selected": false,
-      "id": "38"
+      "id": "CeZWIgz"
     },
     {
       "name": "test",
@@ -310,23 +310,31 @@
       "quantity": 0,
       "available": false,
       "selected": false,
-      "id": "39"
+      "id": "dYtU4Xx"
     },
     {
-      "name": "test",
+      "name": "teas",
       "price": 0,
       "quantity": 0,
       "available": false,
       "selected": false,
-      "id": "dWebnKW"
+      "id": "Le4n-iV"
     },
     {
-      "name": "test",
+      "name": "sssss",
       "price": 0,
       "quantity": 0,
       "available": false,
       "selected": false,
-      "id": "NZSfrQu"
+      "id": "1z2pbP4"
+    },
+    {
+      "name": "sssss",
+      "price": 0,
+      "quantity": 0,
+      "available": false,
+      "selected": false,
+      "id": "20EI5oa"
     }
   ]
 }

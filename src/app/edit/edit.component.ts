@@ -6,6 +6,7 @@ import {ActivatedRoute} from "@angular/router";
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {AppStateService} from "../services/app-state.service";
 import {ToastService} from "../services/toast-service.service";
+import {environment} from "../../environments/environment";
 
 @Component({
   selector: 'app-edit',
@@ -51,12 +52,12 @@ export class EditProductComponent implements OnInit{
 
     }
 
-  showStandard(template: TemplateRef<any>) {
-    this.toastService.show({ template: template, delay: 1000});
+  showStandard(template: TemplateRef<any>, innerText: string) {
+    this.toastService.show({ template, text: innerText, classname: 'p-3', delay:30000 });
   }
 
   showDanger(template: TemplateRef<any>) {
-    this.toastService.show({ template, classname: 'bg-danger text-light', delay: 3000 });
+    this.toastService.show({ template, classname: 'bg-danger text-light p-3', delay: 300000});
   }
 
   openModal(content: any) {
@@ -68,11 +69,12 @@ export class EditProductComponent implements OnInit{
   }
 
   editComponent() {
-    this.showStandard(this.standardTemplateRef)
+    this.showStandard(this.standardTemplateRef,'Updating product information')
     this.product = this.productFormGroup.value;
     this.productServices.updateProduct(this.productFormGroup.value).subscribe({
       next: () => {
         this.appState.getAllProducts()
+        this.toastService.clear()
         this.openModal(this.myModalContent)
       }, error: err => {
         console.error(err.message)
@@ -80,5 +82,4 @@ export class EditProductComponent implements OnInit{
       }
     })
   }
-
 }
