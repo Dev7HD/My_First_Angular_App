@@ -1,14 +1,17 @@
-import {Injectable, TemplateRef} from '@angular/core';
-import {Toast, ToastService} from "./toast-service.service";
+import {Injectable} from '@angular/core';
+import {Subject} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoadingService {
+  public isLoading$ = new Subject<boolean>();
 
-  constructor(private toastService:ToastService) { }
+  showSpinner(){
+    this.isLoading$.next(true);
+  }
 
-  show(template: TemplateRef<any>) {
-    this.toastService.show({template: template, text: 'Loading....', classname: 'p-3', delay: 4500});
+  hideSpinner(){
+    this.isLoading$.next(false);
   }
 }

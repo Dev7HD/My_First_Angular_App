@@ -26,8 +26,6 @@ export class AppStateService {
 
   constructor(private productServices: ProductsService) { }
 
-
-
   public getAllProducts(){
     this.productServices.getAllProducts().subscribe({
       next: products => {

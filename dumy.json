@@ -281,38 +281,6 @@
       "selected": false
     },
     {
-      "name": "test",
-      "price": 0,
-      "quantity": 0,
-      "available": false,
-      "selected": false,
-      "id": "HUByngL"
-    },
-    {
-      "name": "test",
-      "price": 0,
-      "quantity": 0,
-      "available": false,
-      "selected": false,
-      "id": "WMnDqqH"
-    },
-    {
-      "name": "test",
-      "price": 0,
-      "quantity": 0,
-      "available": false,
-      "selected": false,
-      "id": "CeZWIgz"
-    },
-    {
-      "name": "test",
-      "price": 0,
-      "quantity": 0,
-      "available": false,
-      "selected": false,
-      "id": "dYtU4Xx"
-    },
-    {
       "name": "teas",
       "price": 0,
       "quantity": 0,
@@ -326,15 +294,15 @@
       "quantity": 0,
       "available": false,
       "selected": false,
-      "id": "1z2pbP4"
+      "id": "20EI5oa"
     },
     {
-      "name": "sssss",
+      "name": "vvvv",
       "price": 0,
       "quantity": 0,
       "available": false,
       "selected": false,
-      "id": "20EI5oa"
+      "id": "Q9evxZm"
     }
   ]
 }

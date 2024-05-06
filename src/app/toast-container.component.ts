@@ -13,8 +13,8 @@ import {ToastService} from "./services/toast-service.service";
       <ngb-toast
         [class]="toast.classname"
         [autohide]="true"
-        [delay]="toast.delay || 30000"
-        [innerText]="toast.text || 'Oops, something went wrong !'"
+        [delay]="toast.delay || 3000"
+        [innerText]="toast.text"
         (hidden)="toastService.remove(toast)"
       >
         <ng-template [ngTemplateOutlet]="toast.template"></ng-template>

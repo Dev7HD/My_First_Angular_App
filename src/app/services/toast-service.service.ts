@@ -11,18 +11,20 @@ export interface Toast {
 @Injectable({ providedIn: 'root' })
 export class ToastService {
   toasts: Toast[] = [];
+  standardToastClassName:string = 'p-3';
+  successToastClassName:string = 'bg-success text-light p-3';
+  errorToastClassName:string = 'bg-danger text-light p-3';
 
   show(toast: Toast) {
     this.toasts.push(toast);
   }
 
   remove(toast: Toast) {
-    console.log(this.toasts)
     this.toasts = this.toasts.filter((t) => t !== toast);
-    console.log(this.toasts)
   }
 
   clear() {
     this.toasts.splice(0, this.toasts.length);
   }
 }
+

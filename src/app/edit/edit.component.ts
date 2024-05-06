@@ -6,7 +6,6 @@ import {ActivatedRoute} from "@angular/router";
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {AppStateService} from "../services/app-state.service";
 import {ToastService} from "../services/toast-service.service";
-import {environment} from "../../environments/environment";
 
 @Component({
   selector: 'app-edit',
@@ -14,9 +13,8 @@ import {environment} from "../../environments/environment";
   styleUrl: './edit.component.css'
 })
 export class EditProductComponent implements OnInit{
-  @ViewChild('dangerTpl') errorTemplateRef!: TemplateRef<any>;
+  @ViewChild('toastTemplate') toastTemplate!: TemplateRef<any>;
   @ViewChild('myModalContent') myModalContent: any;
-  @ViewChild('standardTpl') standardTemplateRef!: TemplateRef<any>;
 
   public productFormGroup!: FormGroup;
   public product!: Product;
@@ -47,17 +45,14 @@ export class EditProductComponent implements OnInit{
         })
       }, error: err => {
         console.error(err)
+        this.showToast(this.toastTemplate, 'Oops, something went wrong!', this.toastService.errorToastClassName);
       }
     })
 
     }
 
-  showStandard(template: TemplateRef<any>, innerText: string) {
-    this.toastService.show({ template, text: innerText, classname: 'p-3', delay:30000 });
-  }
-
-  showDanger(template: TemplateRef<any>) {
-    this.toastService.show({ template, classname: 'bg-danger text-light p-3', delay: 300000});
+  showToast(template: TemplateRef<any>, innerText: string, classname: string): void {
+    this.toastService.show({ template, text: innerText, classname: classname, delay: 3000 });
   }
 
   openModal(content: any) {
@@ -69,7 +64,7 @@ export class EditProductComponent implements OnInit{
   }
 
   editComponent() {
-    this.showStandard(this.standardTemplateRef,'Updating product information')
+    this.showToast(this.toastTemplate,'Updating product information',this.toastService.standardToastClassName)
     this.product = this.productFormGroup.value;
     this.productServices.updateProduct(this.productFormGroup.value).subscribe({
       next: () => {
@@ -78,7 +73,7 @@ export class EditProductComponent implements OnInit{
         this.openModal(this.myModalContent)
       }, error: err => {
         console.error(err.message)
-        this.showDanger(this.errorTemplateRef)
+        this.showToast(this.toastTemplate, 'Oops, something went wrong!', this.toastService.errorToastClassName);
       }
     })
   }

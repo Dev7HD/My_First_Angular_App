@@ -13,14 +13,17 @@ import { takeUntil } from 'rxjs/operators';
   styleUrls: ['./product.component.css']
 })
 export class ProductComponent implements OnInit, OnDestroy, AfterViewInit {
+
+
+
   constructor(
     private productServices: ProductsService,
     private router: Router,
     public appState: AppStateService,
-    public toastService: ToastService
+    public toastService: ToastService,
   ) {}
 
-  @ViewChild('standardTpl') standardTemplateRef!: TemplateRef<any>;
+  @ViewChild('toastTemplate') toastTemplate!: TemplateRef<any>;
   @ViewChild('successTpl') successTemplateRef!: TemplateRef<any>;
   @ViewChild('dangerTpl') errorTemplateRef!: TemplateRef<any>;
 
@@ -32,7 +35,6 @@ export class ProductComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngOnInit() {
-
     this.isFirstRender = true
   }
 
@@ -42,23 +44,15 @@ export class ProductComponent implements OnInit, OnDestroy, AfterViewInit {
     this.toastService.clear();
   }
 
-  showStandard(template: TemplateRef<any>, innerText: string) {
-    this.toastService.show({ template, text: innerText, classname: 'p-3' });
-  }
-
-  showSuccess(template: TemplateRef<any>, innerText: string) {
-    this.toastService.show({ template, classname: 'bg-success text-light p-3', delay: 3000, text: innerText });
-  }
-
-  showDanger(template: TemplateRef<any>) {
-    this.toastService.show({ template, classname: 'bg-danger text-light p-3', delay: 6000 });
+  showToast(template: TemplateRef<any>, innerText: string, classname: string): void {
+    this.toastService.show({ template, text: innerText, classname: classname, delay: 3000 });
   }
 
   getProducts(keyword: string, page: number, size: number) {
     if(this.isFirstRender){
       this.toastService.clear();
     }
-    this.showStandard(this.standardTemplateRef,'Loading products...');
+    this.showToast(this.toastTemplate,'Loading products...', this.toastService.standardToastClassName);
     this.productServices
       .getProducts(keyword, page, size)
       .pipe(takeUntil(this.unsubscribe$))
@@ -86,19 +80,19 @@ export class ProductComponent implements OnInit, OnDestroy, AfterViewInit {
           });
           this.toastService.clear();
           if (keyword === '') {
-            this.showSuccess(this.successTemplateRef,'Product successfully updated');
+            this.showToast(this.toastTemplate,'Product successfully loaded.',this.toastService.successToastClassName);
           }
           this.isFirstRender = false
         },
         error: err => {
           console.error(err);
-          this.showDanger(this.errorTemplateRef);
+          this.showToast(this.toastTemplate, 'Oops, something went wrong!', this.toastService.errorToastClassName);
         }
       });
   }
 
   updateProduct(product: Product, field: string) {
-    this.showStandard(this.standardTemplateRef,'Updating product information...');
+    this.showToast(this.toastTemplate,'Updating product information...', this.toastService.standardToastClassName);
     this.productServices
       .updateFieldProduct(product, field)
       .pipe(takeUntil(this.unsubscribe$))
@@ -109,18 +103,18 @@ export class ProductComponent implements OnInit, OnDestroy, AfterViewInit {
             this.appState.updateOneProduct(productIndex, updatedProduct);
           }
           this.toastService.clear()
-          this.showSuccess(this.successTemplateRef,'Product successfully updated');
+          this.showToast(this.successTemplateRef,'Product successfully updated',this.toastService.successToastClassName);
         },
         error: err => {
           console.error(err);
-          this.showDanger(this.errorTemplateRef);
+          this.showToast(this.toastTemplate, 'Oops, something went wrong!', this.toastService.errorToastClassName);
         }
       });
   }
 
   deleteProduct() {
     if (this.appState.productState.selectedProduct) {
-      this.showStandard(this.standardTemplateRef,'Deleting product information...');
+      this.showToast(this.toastTemplate,'Deleting product information...',this.toastService.standardToastClassName);
       this.productServices
         .deleteProduct(this.appState.productState.selectedProduct)
         .pipe(takeUntil(this.unsubscribe$))
@@ -128,7 +122,7 @@ export class ProductComponent implements OnInit, OnDestroy, AfterViewInit {
           next: () => {
             this.toastService.clear()
             this.appState.getAllProducts();
-            this.showSuccess(this.successTemplateRef,'Product successfully deleted');
+            this.showToast(this.toastTemplate,'Product successfully deleted',this.toastService.successToastClassName);
             this.getProducts(
               this.appState.productState.keyword,
               this.appState.productState.thisPage,
@@ -138,7 +132,7 @@ export class ProductComponent implements OnInit, OnDestroy, AfterViewInit {
           },
           error: err => {
             console.error(err);
-            this.showDanger(this.errorTemplateRef);
+            this.showToast(this.toastTemplate, 'Oops, something went wrong!', this.toastService.errorToastClassName);
           }
         });
     }
