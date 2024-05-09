@@ -1,1 +1,4 @@
 @import "bootstrap-icons/font/bootstrap-icons.min.css";
+app-toasts{
+  z-index: 999999 !important;
+}

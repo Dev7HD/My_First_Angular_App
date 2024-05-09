@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnDestroy, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, TemplateRef, ViewChild } from '@angular/core';
 import { Product } from '../../model/product.model';
 import { ProductsService } from '../services/products.service';
 import { Router } from '@angular/router';
@@ -12,9 +12,8 @@ import { takeUntil } from 'rxjs/operators';
   templateUrl: './product.component.html',
   styleUrls: ['./product.component.css']
 })
-export class ProductComponent implements OnInit, OnDestroy, AfterViewInit {
-
-
+export class ProductComponent implements OnDestroy, AfterViewInit {
+  private unsubscribe$ = new Subject<void>();
 
   constructor(
     private productServices: ProductsService,
@@ -27,15 +26,8 @@ export class ProductComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild('successTpl') successTemplateRef!: TemplateRef<any>;
   @ViewChild('dangerTpl') errorTemplateRef!: TemplateRef<any>;
 
-  private unsubscribe$ = new Subject<void>();
-  private isFirstRender: boolean = true
-
   ngAfterViewInit(): void {
     this.getProducts(this.appState.productState.keyword, this.appState.productState.thisPage, this.appState.productState.size);
-  }
-
-  ngOnInit() {
-    this.isFirstRender = true
   }
 
   ngOnDestroy(): void {
@@ -45,13 +37,11 @@ export class ProductComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   showToast(template: TemplateRef<any>, innerText: string, classname: string): void {
-    this.toastService.show({ template, text: innerText, classname: classname, delay: 3000 });
+    this.toastService.show({ template, text: innerText, classname: classname, delay: 30000 });
   }
 
   getProducts(keyword: string, page: number, size: number) {
-    if(this.isFirstRender){
-      this.toastService.clear();
-    }
+    this.toastService.clear();
     this.showToast(this.toastTemplate,'Loading products...', this.toastService.standardToastClassName);
     this.productServices
       .getProducts(keyword, page, size)
@@ -82,7 +72,6 @@ export class ProductComponent implements OnInit, OnDestroy, AfterViewInit {
           if (keyword === '') {
             this.showToast(this.toastTemplate,'Product successfully loaded.',this.toastService.successToastClassName);
           }
-          this.isFirstRender = false
         },
         error: err => {
           console.error(err);

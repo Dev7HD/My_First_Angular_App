@@ -7,12 +7,15 @@ import { HomeComponent } from './home/home.component';
 import { ProductComponent } from './product/product.component';
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import { NewProductComponent } from './new-product/new-product.component';
-import {FormBuilder, FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { EditProductComponent } from './edit/edit.component';
 import {NgbModule, NgbTooltipModule} from '@ng-bootstrap/ng-bootstrap';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import {ToastsContainer} from "./toast-container.component";
 import {AppInterceptor} from "./interceptor/app.interceptor";
+import { LoginComponent } from './login/login.component';
+import { AdminComponent } from './admin/admin.component';
+import { NavbarComponent } from './navbar/navbar.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +24,10 @@ import {AppInterceptor} from "./interceptor/app.interceptor";
     ProductComponent,
     NewProductComponent,
     EditProductComponent,
-    DashboardComponent
+    DashboardComponent,
+    LoginComponent,
+    AdminComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,
